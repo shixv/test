@@ -17,11 +17,11 @@ Qsortstd,=yourSort=...
 */
 #define _SELECT Qsortstd
 /*      show source array       */
-#define SHOWSRC
+//#define SHOWSRC
 /*      show sorted array       */
-#define SHOWARR
+//#define SHOWARR
 #define _FILENAM "datafiles/arr.dat"
-#define ARRSIZE 100
+#define ARRSIZE 10000000
 #define ElementType int
 
 
