@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//hehe
+
 int replaceSubstr(char *src,char **dst,char *sub,char *new_sub)
 {
 	if(src==NULL&&src[0]=='\0'&&sub==NULL&&sub[0]=='\0'&&new_sub==NULL&&new_sub[0]=='\0')
