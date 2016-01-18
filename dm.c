@@ -60,6 +60,7 @@ int main(void)
 	}
 	free(s);
 	getchar();
+	endwin();
 	return 0;
 }
 void randout(char **s,char **ret,int n)
