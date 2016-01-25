@@ -101,7 +101,7 @@ int main(void)
 		Printpoint(r);
 		refresh();
 		clear();
-		usleep(200000);
+		usleep(100000);
 	}
 	//----------------------
 END:closekeyboard();
@@ -263,11 +263,11 @@ void Randpoint(RP *p,SNode *s,int xmax,int ymax)
 }
 void Convertborder(SNode *s,int x,int y)
 {
-	if(s->xpos>x)
-		s->xpos-=x+1;
+	if(s->xpos>x-1)
+		s->xpos-=x;
 	if(s->xpos<0)
-		s->xpos+=x+1;
-	if(s->ypos>y)
+		s->xpos+=x;
+	if(s->ypos>y-1)
 		s->ypos-=y;
 	if(s->ypos<0)
 		s->ypos+=y;
