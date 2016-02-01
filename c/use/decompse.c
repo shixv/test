@@ -2,16 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAXPRIME 2000000         //读入素数个数，取决于你的素数列表文件
 #define FILENAM "prime.dat"      //素数列表文件
 
 int *decompose(int n,int *parr,int plen);
 void printdarr(int *darr,int *parr);
-int *readfile(char *filename,int n);
+int *readfile(char *filename,int *n);
 int main(int argc,char *argv[])
 {
-	int *parray=readfile(FILENAM,MAXPRIME);
-	int *darray=decompose(atoi(argv[1]),parray,MAXPRIME);
+	int n=0;
+	int *parray=readfile(FILENAM,&n);
+	int *darray=decompose(atoi(argv[1]),parray,n);
 	printdarr(darray,parray);
 	return 0;	
 }
@@ -39,9 +39,10 @@ int *decompose(int n,int *parr,int plen)
 }
 void printdarr(int *darr,int *parr)
 {
+	int flag=0;
 	if(darr[0]==0)
 	{
-
+		flag=1;
 	}
 	else if(darr[0]==1)
 	{
@@ -57,28 +58,37 @@ void printdarr(int *darr,int *parr)
 			break;
 		if(darr[i]==0)
 		{
-
 		}
 		else if(darr[i]==1)
 		{
-			printf("*%d",parr[i]);
+			if(flag)
+				printf("%d",parr[i]);
+			else
+				printf("*%d",parr[i]);
+			flag=0;
 		}
 		else
 		{
-			printf("*(%d^%d)",parr[i],darr[i]);
+			if(flag)
+				printf("(%d^%d)",parr[i],darr[i]);
+			else
+				printf("*(%d^%d)",parr[i],darr[i]);
+			flag=0;
 		}
 	}
 	printf("\n");
 	free(darr);
 	free(parr);
 }
-int *readfile(char *filename,int n)
+int *readfile(char *filename,int *n)
 {
 	FILE *p=fopen(filename,"r");
-	int *parr=(int *)malloc(sizeof(int)*n);
-	for(int i=0;i<n;i++)
-	{
-		fread(parr+i,sizeof(int),1,p);
-	}
+	(*n)=0;
+	int d;
+	while(fread(&d,sizeof(int),1,p)!=0)
+		(*n)++;
+	fseek(p,0,SEEK_SET);
+	int *parr=(int *)malloc(sizeof(int)*(*n));
+	fread(parr,sizeof(int),*n,p);
 	return parr;
 }
