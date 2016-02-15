@@ -85,10 +85,10 @@ int *readfile(char *filename,int *n)
 	FILE *p=fopen(filename,"r");
 	(*n)=0;
 	int d;
-	while(fread(&d,sizeof(int),1,p)!=0)
-		(*n)++;
+	while(fread(&d,sizeof(int),1,p)!=0)(*n)++;
 	fseek(p,0,SEEK_SET);
 	int *parr=(int *)malloc(sizeof(int)*(*n));
 	fread(parr,sizeof(int),*n,p);
+	fclose(p);
 	return parr;
 }
