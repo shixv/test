@@ -1,0 +1,32 @@
+#include <stdio.h>
+/*
+void print(int *arr,int n,int N)
+{
+	if(n==0)
+		return;
+	if(n==1)
+	{
+		arr[N/2][N/2]=N-n+1;
+		return;
+	}
+	for(int i=0;i<n;i++)
+	*/
+void fillarr(int n,int arr[][8])
+{
+	for(int i=0;i<n;i++)
+		for(int j=0;j<n;j++)
+			arr[i][j]=n;
+}
+int main(void)
+{
+	int arr[8][8];
+	fillarr(8,arr);
+	for(int i=0;i<8;i++)
+	{
+		for(int j=0;j<8;j++)
+			printf("%d ",arr[i][j]);
+		printf("\n");
+	}
+			
+	return 0;
+}
