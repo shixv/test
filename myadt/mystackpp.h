@@ -1,35 +1,7 @@
+#ifndef _mystackpp_h
+#define _mystackpp_h
 #include <cstring>
-template<class ElemType> 
-class Node
-{
-	private:
-	public:
-		ElemType *data;
-		Node *next;
-		Node()
-		{
-			data=new ElemType;
-			next=NULL;
-		}
-		Node(const Node &node)
-		{
-			data=new ElemType;
-			memcpy(data,node->data,sizeof(ElemType));
-			next=node->next;
-		}
-		Node(const ElemType &e,Node *next)
-		{
-			data=new ElemType;
-			memcpy(data,&e,sizeof(ElemType));
-			this->next=next;
-		}
-		~Node()
-		{
-			delete data;
-			next=NULL;
-		}
-
-};
+#include "node.h"
 template<class ElemType>
 class Stack
 {
@@ -80,3 +52,4 @@ class Stack
 			return top==base;
 		}
 };
+#endif
