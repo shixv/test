@@ -4,6 +4,8 @@ int delline(char *filename)
 {
 	int len=0;
 	FILE *fp=fopen(filename,"r");
+	if(fp==NULL)
+		return 1;
 	int ch;
 	while(fread(&ch,sizeof(char),1,fp))
 		len++;
@@ -27,6 +29,7 @@ int delline(char *filename)
 		else
 		{
 			fpre=fcur;
+			if(!flag)
 			fcur=ftell(fp);
 		}
 		if(flag++)
@@ -39,6 +42,7 @@ int delline(char *filename)
 int main(int argc,char *argv[])
 {
 	for(int i=1;i<argc;i++)
-		delline(argv[i]);
+		if(delline(argv[i]))
+			return 0;
 	return 0;
 }
