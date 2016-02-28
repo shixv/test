@@ -1,10 +1,10 @@
-#include <list>
+#include <forward_list>
 #include <iostream>
 #define FILENAME "prime.dat"
 #define ElemType int
 using namespace std;
 
-bool isPrime(list<ElemType>& arr,ElemType n)
+bool isPrime(forward_list<ElemType>& arr,ElemType n)
 {
 	if(n<2)return false;
 	for(auto& i:arr){
@@ -13,7 +13,7 @@ bool isPrime(list<ElemType>& arr,ElemType n)
 	}
 	return true;
 }
-bool createPrime(ElemType n,list<ElemType>& arr)
+bool createPrime(ElemType n,forward_list<ElemType>& arr)
 {
 	if(n<1)
 		return NULL;
@@ -28,7 +28,7 @@ bool createPrime(ElemType n,list<ElemType>& arr)
 }
 int main(int argc,char *argv[])
 {
-	list<ElemType> array;
+	forward_list<ElemType> array;
 	createPrime(atoi(argv[1]),array);
 	cout<<array.size()<<endl;
 	return 0;

@@ -3,7 +3,7 @@
 int delline(char *filename)
 {
 	int len=0;
-	FILE *fp=fopen(filename,"r");
+	FILE *fp=fopen(filename,"rb");
 	if(fp==NULL)
 		return 1;
 	int ch;
@@ -19,6 +19,8 @@ int delline(char *filename)
 	long int fcur=0L;
 	for(int i=0;i<len;i++)
 	{
+		if(buf[i]=='\r'&&buf[i+1]=='\n')
+			continue;
 		fwrite(buf+i,1,1,fp);
 		if(buf[i]!='\n')
 		{
@@ -30,7 +32,7 @@ int delline(char *filename)
 		{
 			fpre=fcur;
 			if(!flag)
-			fcur=ftell(fp);
+				fcur=ftell(fp);
 		}
 		if(flag++)
 			fseek(fp,fpre,SEEK_SET);
