@@ -1,11 +1,12 @@
 #include <unistd.h>
 #include <ncurses.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
 #include <term.h>
 #include <termios.h>
 
+#define FILENAM ".snake"
 #define Shead 0
 #define Sbody 1
 #define Stail 2
@@ -49,6 +50,8 @@ void Initheadtail(SNode **s);//初始化头尾
 void Addhead(SNode **s);//从头部增加长度
 void Changedirection(SNode *s,int direction);//改变方向
 int Checkhead(SNode *s,RP *p);//-1:end,0:continue,1:eat检查头部状态
+SNode* Load(void);
+void Save(SNode* sp); 
 
 int main(void)
 {
@@ -58,6 +61,7 @@ int main(void)
 	RP r={0,0};
 	RP *rp=&r;
 	SNode *sp=NULL;
+//	SNode *sp=Load();
 	Initheadtail(&sp);
 	Randpoint(rp,sp,XMax,YMax);
 	initscr();
@@ -106,7 +110,11 @@ int main(void)
 	//----------------------
 END:closekeyboard();
 	endwin();
-	Freenode(sp);
+/*	if(ch=='q')
+		Save(sp);
+	else
+		Save(NULL);
+*/	Freenode(sp);
 	return 0;
 }
 
@@ -351,3 +359,31 @@ int readch()
 	read(0,&ch,1);
 	return ch;
 }
+SNode* Load(void)
+{
+	FILE* fp=fopen(FILENAM,"r");
+	SNode *sp=NULL;
+	if(!fp){
+		Initheadtail(&sp);
+		return sp;
+	}
+	sp=(SNode *)malloc(sizeof(SNode));
+	SNode *tmp=sp;
+	while(fread(sp,sizeof(SNode),1,fp)==1){
+		sp->next=(SNode *)malloc(sizeof(SNode));
+		sp=sp->next;
+	}
+	free(sp);
+	fclose(fp);
+	return tmp;
+}
+void Save(SNode* sp)
+{
+	FILE* fp=fopen(FILENAM,"w");
+	while(sp!=NULL){
+		fwrite(sp,sizeof(SNode),1,fp);
+		sp=sp->next;
+	}
+	fclose(fp);
+}
+
