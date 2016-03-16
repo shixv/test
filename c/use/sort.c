@@ -15,13 +15,13 @@ choice:
 NULL,Selectsort,Shellsort,Insertionsort,Heapsort,Mergesort,Quicksort,Bubblesort,Cocktailsort
 Qsortstd,=yourSort=...
 */
-#define _SELECT Qsortstd
+#define _SELECT Qsortmy
 /*      show source array       */
 //#define SHOWSRC
 /*      show sorted array       */
 //#define SHOWARR
-#define _FILENAM "datafiles/arr.dat"
-#define ARRSIZE 10000000
+#define _FILENAM "arr.dat"
+#define ARRSIZE 100000
 #define ElementType int
 
 
@@ -45,6 +45,21 @@ void Qsortstd(ElementType *a,int n)
 	qsort(a,n,sizeof(ElementType),compare);
 }
 
+void Qsortmy(int* arr,int left,int right)
+{
+	int i=left;
+	int j=right;
+	int temp=arr[0];
+	while(i<j){
+		while(i<j&&temp<=arr[i])i++;
+		if(i<j)arr[i++]=arr[j];
+		while(i<j&&temp>=arr[j])j--;
+		if(i<j)arr[j--]=arr[i];
+		arr[i]=temp;
+		Qsortmy(arr,left,i-1);
+		Qsortmy(arr,i+1,right);
+	}
+}
 void Cocktailsort(ElementType *a,int n)
 {
 	int i,left=0,right=n-1;
