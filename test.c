@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int main(void)
+nt main(void)
 {
-	printf("%d\n",123);
+	rintf("%d\n",123);
 	printf("%d\n",123);
 	return 0;
 }
